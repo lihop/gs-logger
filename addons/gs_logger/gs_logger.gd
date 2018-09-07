@@ -8,8 +8,11 @@ Copyright:
 	Copyright 2018 SpockerDotNet LLC
 
 Remarks:
-	The Logger will print a message to a Handler
-	depending on the Level it is set at.
+	The Logger will send a request to an
+	Appender to output a log message.
+
+See Also:
+	Appender, Level
 """
 
 extends Node
@@ -37,14 +40,12 @@ const CATEGORY_CAMERA = "camera"
 enum LogLevels \
 	{
 		LEVEL_ALL = 999,
-		LEVEL_FINEST = 902,
-		LEVEL_FINER = 901,
-		LEVEL_FINE = 900,
-		LEVEL_TRACE = 800,
-		LEVEL_INFO = 500,
+		LEVEL_TRACE = 600,
+		LEVEL_DEBUG = 500,
+		LEVEL_INFO = 400,
 		LEVEL_WARN = 200,
 		LEVEL_ERROR = 100
-		LEVEL_SEVERE = 001,
+		LEVEL_FATAL = 001,
 		LEVEL_NONE = 000,
 	}
 
@@ -92,22 +93,18 @@ static func get_level_name(level):
 	match level:
 		LogLevels.LEVEL_ALL:
 			return "ALL"
-		LogLevels.LEVEL_FINEST:
-			return "FINEST"
-		LogLevels.LEVEL_FINER:
-			return "FINER"
-		LogLevels.LEVEL_FINE:
-			return "FINE"
 		LogLevels.LEVEL_TRACE:
 			return "TRACE"
+		LogLevels.LEVEL_DEBUG:
+			return "DEBUG"
 		LogLevels.LEVEL_INFO:
 			return "INFO"
 		LogLevels.LEVEL_WARN:
 			return "WARN"
 		LogLevels.LEVEL_ERROR:
 			return "ERROR"
-		LogLevels.LEVEL_SEVERE:
-			return "SEVERE"
+		LogLevels.LEVEL_FATAL:
+			return "FATAL"
 		_:
 			return "NONE"
 	
@@ -125,39 +122,21 @@ func info(message, category="general"):
 	
 	
 """
-Function: fine
-
-	Log a Message at a Fine level.
-"""	
-func fine(message, category="general"):
-	_write(LogLevels.LEVEL_FINE, message, category)
-	
-	
-"""
-Function: finer
-
-	Log a Message at a Finer level.
-"""	
-func finer(message, category="general"):
-	_write(LogLevels.LEVEL_FINER, message, category)
-	
-	
-"""
-Function: finest
-
-	Log a Message at the Finest level.
-"""	
-func finest(message, category="general"):
-	_write(LogLevels.LEVEL_FINEST, message, category)
-	
-	
-"""
 Function: trace
 
 	Log a Message at a Trace level.
 """
 func trace(message, category="general"):
 	_write(LogLevels.LEVEL_TRACE, message, category)
+	
+
+"""
+Function: debug
+
+	Log a Message at a Trace level.
+"""
+func debug(message, category="general"):
+	_write(LogLevels.LEVEL_DEBUG, message, category)
 	
 
 """
@@ -179,17 +158,17 @@ func error(message, category="error"):
 	
 
 """
-Function: severt
+Function: fatal
 
 	Log an Error Message.
 """	
-func severe(message, category="error"):
-	_write(LogLevels.LEVEL_SEVERE, message, category)
+func fatal(message, category="error"):
+	_write(LogLevels.LEVEL_FATAL, message, category)
 	
 #	PRIVATE
 
 func _get_formatted_date(date):
-	return "%02d/%02d/%02d %02d:%02d:%02d" % [date.day, date.month, date.year, date.hour, date.minute, date.second]
+	return "%02d/%02d/%02d %02d:%02d:%02d" % [date.month, date.day, date.year, date.hour, date.minute, date.second]
 
 
 func _get_format_name(format):
@@ -210,22 +189,18 @@ func _get_level_name(level):
 	match level:
 		LogLevels.LEVEL_ALL:
 			return "ALL"
-		LogLevels.LEVEL_FINEST:
-			return "FINEST"
-		LogLevels.LEVEL_FINER:
-			return "FINER"
-		LogLevels.LEVEL_FINE:
-			return "FINE"
 		LogLevels.LEVEL_TRACE:
 			return "TRACE"
+		LogLevels.LEVEL_DEBUG:
+			return "DEBUG"
 		LogLevels.LEVEL_INFO:
 			return "INFO"
 		LogLevels.LEVEL_WARN:
 			return "WARN"
 		LogLevels.LEVEL_ERROR:
 			return "ERROR"
-		LogLevels.LEVEL_SEVERE:
-			return "SEVERE"
+		LogLevels.LEVEL_FATAL:
+			return "FATAL"
 		_:
 			return "NONE"
 
@@ -281,7 +256,8 @@ func _exit_tree():
 	print("hello")
 	for appender in logger_appenders:
 		appender.close()
-	
+
+	logger_appenders.clear()	
 
 func _init():
 	print(" ")

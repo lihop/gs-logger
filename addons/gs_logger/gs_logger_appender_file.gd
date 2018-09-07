@@ -14,9 +14,9 @@ func close():
 	savefile.close()
 
 
-func _init():
+func _init(filename="project.log"):
 	savefile = File.new()
-	savefile.open("res://project.log", File.WRITE)
+	savefile.open("res://%s" % [filename], File.WRITE)
 	name = "file appender"
 	print("** File Appender Initialized **")
 	print(" ")

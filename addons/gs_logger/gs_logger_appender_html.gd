@@ -18,9 +18,9 @@ func close():
 	savefile.close()
 	
 	
-func _init():
+func _init(filename="logger.html"):
 	savefile = File.new()
-	savefile.open("res://logger.html", File.WRITE)
+	savefile.open("res://%s" % [filename], File.WRITE)
 	name = "file appender"
 	print("** Html Appender Initialized **")
 	print(" ")

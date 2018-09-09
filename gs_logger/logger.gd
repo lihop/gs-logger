@@ -17,10 +17,15 @@ See Also:
 
 extends Node
 
-var Appender = preload("res://addons/gs_logger/gs_logger_appender.gd")
-var ConsoleAppender = preload("res://addons/gs_logger/gs_logger_appender_console.gd")
-var FileAppender = preload("res://addons/gs_logger/gs_logger_appender_file.gd")
-var HtmlAppender = preload("res://addons/gs_logger/gs_logger_appender_html.gd")
+var Message = preload("./message.gd")
+
+var Appender = preload("./appender.gd")
+var ConsoleAppender = preload("./appenders/console_appender.gd")
+var FileAppender = preload("./appenders/file_appender.gd")
+
+var Layout = preload("./layout.gd")
+var PatternLayout = preload("./layouts/pattern_layout.gd")
+var HtmlLayout = preload("./layouts/html_layout.gd")
 
 const CATEGORY_GENERAL = "general"
 const CATEGORY_WARN = "warn"
@@ -64,7 +69,6 @@ enum LogFormats \
 #var logger_format = LogFormats.FULL
 
 var logger_line = 0
-
 var logger_appenders = []
 
 
@@ -74,7 +78,6 @@ var logger_appenders = []
 func add_appender(appender):
 	if appender is Appender:
 		logger_appenders.append(appender)
-		appender.open()
 	
 	return appender
 
@@ -118,7 +121,7 @@ Remarks:
 	This is the Default level of logging.
 """	
 func info(message, category="general"):
-	_write(LogLevels.LEVEL_INFO, message, category)
+	_append(LogLevels.LEVEL_INFO, message, category)
 	
 	
 """
@@ -127,7 +130,7 @@ Function: trace
 	Log a Message at a Trace level.
 """
 func trace(message, category="general"):
-	_write(LogLevels.LEVEL_TRACE, message, category)
+	_append(LogLevels.LEVEL_TRACE, message, category)
 	
 
 """
@@ -136,7 +139,7 @@ Function: debug
 	Log a Message at a Trace level.
 """
 func debug(message, category="general"):
-	_write(LogLevels.LEVEL_DEBUG, message, category)
+	_append(LogLevels.LEVEL_DEBUG, message, category)
 	
 
 """
@@ -145,7 +148,7 @@ Function: warn
 	Log a Warning Message.
 """
 func warn(message, category="warn"):
-	_write(LogLevels.LEVEL_WARN, message, category)
+	_append(LogLevels.LEVEL_WARN, message, category)
 	
 
 """
@@ -154,7 +157,7 @@ Function: error
 	Log an Error Message.
 """	
 func error(message, category="error"):
-	_write(LogLevels.LEVEL_ERROR, message, category)
+	_append(LogLevels.LEVEL_ERROR, message, category)
 	
 
 """
@@ -163,7 +166,7 @@ Function: fatal
 	Log an Error Message.
 """	
 func fatal(message, category="error"):
-	_write(LogLevels.LEVEL_FATAL, message, category)
+	_append(LogLevels.LEVEL_FATAL, message, category)
 	
 #	PRIVATE
 
@@ -220,34 +223,22 @@ func _get_format_by_name(format_name):
 			return LogFormats.NONE
 			
 			
-func _write(level, message = "", category = CATEGORY_GENERAL):
+func _append(level, message = "", category = CATEGORY_GENERAL):
 	
 	if logger_appenders.size() <= 0:
 		logger_appenders.append(ConsoleAppender.new())
 		
+	if logger_line < 1:
+		for appender in logger_appenders:
+			appender.start()
+			appender.append_raw(appender.layout.getHeader())
+		
+	logger_line += 1
+	
 	for appender in logger_appenders:
-		
 #		print("msg level:%d, logger_level:%d" % [level, appender.logger_level])
-		
 		if level <= appender.logger_level:
-			
-			logger_line += 1
-			
-			var msg = ""
-			
-			match appender.logger_format:
-				LogFormats.FULL:
-					msg = "%s %-8s %-8s %-8d %s" % [_get_formatted_date(OS.get_datetime()), category.to_upper(), _get_level_name(level), logger_line, message]
-				LogFormats.MORE:
-					msg = "%-8s %-8s %-8d %s" % [_get_formatted_date(OS.get_datetime()), category.to_upper(), _get_level_name(level), logger_line, message]
-				LogFormats.DEFAULT:
-					msg = "%-10s %-8d %s" % [_get_level_name(level), logger_line, message]
-				LogFormats.SIMPLE:
-					msg = "%-8d %s" % [logger_line, message]
-				_:
-					msg = "%s" % [message]
-					
-			appender.write(level, msg)
+			appender.append(Message.new(level, message, category, logger_line))
 		
 	
 #	@INTERNAL
@@ -255,7 +246,8 @@ func _write(level, message = "", category = CATEGORY_GENERAL):
 func _exit_tree():
 	print("hello")
 	for appender in logger_appenders:
-		appender.close()
+		appender.append_raw(appender.layout.getFooter())
+		appender.stop()
 
 	logger_appenders.clear()	
 

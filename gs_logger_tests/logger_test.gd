@@ -1,6 +1,5 @@
 extends Node
 
-
 #var ConsoleAppender = preload("res://addons/gs_logger/gs_logger_appender_console.gd")
 #var FileAppender = preload("res://addons/gs_logger/gs_logger_appender_file.gd")
 
@@ -16,10 +15,13 @@ func _try_logging():
 
 func _ready():
 	
-	var h0 = Logger.add_appender(Logger.HtmlAppender.new())
-	h0.logger_level = Logger.LogLevels.LEVEL_DEBUG
-	h0.logger_format = Logger.LogFormats.FULL
+	var h0 = Logger.add_appender(Logger.FileAppender.new("res://.test/new.html"))
+	h0.layout = Logger.HtmlLayout.new()
+#	h0.logger_level = Logger.LogLevels.LEVEL_DEBUG
+#	h0.logger_format = Logger.LogFormats.FULL
 	_try_logging()
+	
+	return
 	
 	var f0 = Logger.add_appender(Logger.FileAppender.new())
 	f0.logger_level = Logger.LogLevels.LEVEL_DEBUG
@@ -30,6 +32,7 @@ func _ready():
 	c0.logger_level = Logger.LogLevels.LEVEL_FATAL
 	c0.logger_format = Logger.LogFormats.FULL
 
+	
 	var ca = Logger.add_appender(Logger.ConsoleAppender.new())
 
 	ca.logger_level = Logger.LEVEL_ALL

@@ -14,4 +14,4 @@ run/main_scene="res://gs_logger_tests/logger_test.tscn"
 
 [autoload]
 
-Logger="*res://addons/gs_logger/gs_logger.gd"
+Logger="*res://gs_logger/logger.gd"

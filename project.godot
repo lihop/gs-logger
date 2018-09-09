@@ -10,6 +10,7 @@ config_version=3
 
 [application]
 
+config/name="gs-logger"
 run/main_scene="res://gs_logger_tests/logger_test.tscn"
 
 [autoload]

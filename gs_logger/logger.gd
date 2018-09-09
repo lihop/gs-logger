@@ -71,6 +71,8 @@ enum LogFormats \
 var logger_line = 0
 var logger_appenders = []
 
+var refresh_appenders = false
+
 
 #	@PUBLIC
 
@@ -79,6 +81,7 @@ func add_appender(appender):
 	if appender is Appender:
 		logger_appenders.append(appender)
 	
+	refresh_appenders = true
 	return appender
 
 
@@ -228,7 +231,8 @@ func _append(level, message = "", category = CATEGORY_GENERAL):
 	if logger_appenders.size() <= 0:
 		logger_appenders.append(ConsoleAppender.new())
 		
-	if logger_line < 1:
+	if refresh_appenders:
+		refresh_appenders = false
 		for appender in logger_appenders:
 			appender.start()
 			appender.append_raw(appender.layout.getHeader())

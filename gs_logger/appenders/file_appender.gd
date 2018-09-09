@@ -19,7 +19,7 @@ func stop():
 	savefile.close()
 
 
-func _init(filename="project.log"):
+func _init(filename="%s.log" % ProjectSettings.get("application/config/name")):
 	savefile = File.new()
 	savefile.open("%s" % [filename], File.WRITE)
 	name = "file appender"

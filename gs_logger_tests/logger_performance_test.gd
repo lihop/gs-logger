@@ -94,28 +94,28 @@ func file_appender_tests(iters):
 		add a file appender
 	"""
 	var test = "one-file-appender"
-	Logger.add_appender(Logger.FileAppender.new("1.log"))
+	Logger.add_appender(Logger.FileAppender.new(".test/1.log"))
 	start_test_at_level(test, iters)
 	
 	"""
 		add a file appender
 	"""
 	test = "two-file-appenders"
-	Logger.add_appender(Logger.FileAppender.new("2.log"))
+	Logger.add_appender(Logger.FileAppender.new(".test/2.log"))
 	start_test_at_level(test, iters)
 	
 	"""
 		add a file appender
 	"""
 	test = "three-file-appenders"
-	Logger.add_appender(Logger.FileAppender.new("3.log"))
+	Logger.add_appender(Logger.FileAppender.new(".test/3.log"))
 	start_test_at_level(test, iters)
 	
 	"""
 		add a file appender
 	"""
 	test = "four-file-appenders"
-	Logger.add_appender(Logger.FileAppender.new("4.log"))
+	Logger.add_appender(Logger.FileAppender.new(".test/4.log"))
 	start_test_at_level(test, iters)
 	
 
@@ -128,29 +128,37 @@ func html_appender_tests(iters):
 	"""
 		add a html appender
 	"""
-	var test = "one-html-appender"
-	Logger.add_appender(Logger.HtmlAppender.new("1.html"))
+	var test = "one-html"
+	var a1 = Logger.FileAppender.new(".test/1.html")
+	a1.layout = Logger.HtmlLayout.new()
+	Logger.add_appender(a1)
 	start_test_at_level(test, iters)
 	
 	"""
 		add a html appender
 	"""
-	test = "two-html-appenders"
-	Logger.add_appender(Logger.HtmlAppender.new("2.html"))
+	test = "two-html"
+	var a2 = Logger.FileAppender.new(".test/2.html")
+	a2.layout = Logger.HtmlLayout.new()
+	Logger.add_appender(a2)
 	start_test_at_level(test, iters)
 	
 	"""
 		add a html appender
 	"""
-	test = "three-html-appenders"
-	Logger.add_appender(Logger.HtmlAppender.new("3.html"))
+	test = "three-html"
+	var a3 = Logger.FileAppender.new(".test/3.html")
+	a3.layout = Logger.HtmlLayout.new()
+	Logger.add_appender(a3)
 	start_test_at_level(test, iters)
 	
 	"""
 		add a html appender
 	"""
-	test = "four-html-appenders"
-	Logger.add_appender(Logger.HtmlAppender.new("4.html"))
+	test = "four-html"
+	var a4 = Logger.FileAppender.new(".test/4.html")
+	a4.layout = Logger.HtmlLayout.new()
+	Logger.add_appender(a4)
 	start_test_at_level(test, iters)
 	
 	
@@ -163,7 +171,7 @@ func multi_appender_test(iters):
 	"""
 		add a console appender for fatal errors
 	"""
-	var test = "multi-appender"
+	var test = "multi-appenders"
 	var ca = Logger.ConsoleAppender.new()
 	ca.logger_level = Logger.LEVEL_ERROR
 	Logger.add_appender(ca)
@@ -171,14 +179,14 @@ func multi_appender_test(iters):
 	"""
 		add a file appender for info
 	"""
-	var fa = Logger.FileAppender.new("res://.test/f.log")
+	var fa = Logger.FileAppender.new(".test/multi.log")
 	fa.logger_level = Logger.LEVEL_INFO
 	Logger.add_appender(fa)
 	
 	"""
 		add a html appender for all
 	"""
-	var ha = Logger.FileAppender.new("res://.test/h.html")
+	var ha = Logger.FileAppender.new(".test/multi.html")
 	ha.layout = Logger.HtmlLayout.new()
 	ha.logger_level = Logger.LEVEL_ALL
 	Logger.add_appender(ha)
@@ -189,13 +197,13 @@ func multi_appender_test(iters):
 func _ready():
 	
 	savefile = File.new()
-	savefile.open("res://.test/performance.log", File.WRITE)
+	savefile.open(".test/performance.log", File.WRITE)
 	savefile.store_line("test, level, iteration, total_time")
 	
-	var iters = [10, 25, 100, 250, 1000] #, 2500, 5000]
+	var iters = [10, 25, 100, 250, 1000]#, 2500]
 #	console_appender_tests(iters)
 #	file_appender_tests(iters)
-#	html_appender_tests(iters)
-	multi_appender_test(iters)
+	html_appender_tests(iters)
+#	multi_appender_test(iters)
 	
 	savefile.close()

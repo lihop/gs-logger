@@ -1,4 +1,7 @@
-
+"""
+Class: Layout
+	
+"""
 extends Reference
 
 func getHeader():

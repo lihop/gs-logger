@@ -1,6 +1,4 @@
-
 """
-
 Class: Logger
 	A general purpose Logger for use with GDScript.
 
@@ -12,7 +10,7 @@ Remarks:
 	Appender to output a log message.
 
 See Also:
-	Appender, Level
+	Appender, Layout
 """
 
 extends Node
@@ -63,9 +61,9 @@ enum LogFormats \
 		FULL = 99,
 		NONE = -1,
 	}
-	
 
-#var logger_level = LogLevels.LEVEL_ALL setget _set_logger_level
+
+var logger_level = LogLevels.LEVEL_ALL setget set_logger_level
 #var logger_format = LogFormats.FULL
 
 var logger_line = 0
@@ -80,7 +78,7 @@ var refresh_appenders = false
 func add_appender(appender):
 	if appender is Appender:
 		logger_appenders.append(appender)
-	
+
 	refresh_appenders = true
 	return appender
 
@@ -88,12 +86,12 @@ func add_appender(appender):
 func set_logger_level(level):
 	for appender in logger_appenders:
 		appender.logger_level = level
-		
+
 
 func set_logger_format(format):
 	for appender in logger_appenders:
 		appender.logger_format = format
-	
+
 
 static func get_level_name(level):
 	match level:
@@ -113,20 +111,20 @@ static func get_level_name(level):
 			return "FATAL"
 		_:
 			return "NONE"
-	
+
 """
 Function: log
-	
+
 	Log a Message at the Info level.
-	
+
 Remarks:
-	
+
 	This is the Default level of logging.
-"""	
+"""
 func info(message, category="general"):
 	_append(LogLevels.LEVEL_INFO, message, category)
-	
-	
+
+
 """
 Function: trace
 
@@ -134,7 +132,7 @@ Function: trace
 """
 func trace(message, category="general"):
 	_append(LogLevels.LEVEL_TRACE, message, category)
-	
+
 
 """
 Function: debug
@@ -143,7 +141,7 @@ Function: debug
 """
 func debug(message, category="general"):
 	_append(LogLevels.LEVEL_DEBUG, message, category)
-	
+
 
 """
 Function: warn
@@ -152,25 +150,25 @@ Function: warn
 """
 func warn(message, category="warn"):
 	_append(LogLevels.LEVEL_WARN, message, category)
-	
+
 
 """
 Function: error
 
 	Log an Error Message.
-"""	
+"""
 func error(message, category="error"):
 	_append(LogLevels.LEVEL_ERROR, message, category)
-	
+
 
 """
 Function: fatal
 
 	Log an Error Message.
-"""	
+"""
 func fatal(message, category="error"):
 	_append(LogLevels.LEVEL_FATAL, message, category)
-	
+
 #	PRIVATE
 
 func _get_formatted_date(date):
@@ -224,51 +222,49 @@ func _get_format_by_name(format_name):
 			return LogFormats.SIMPLE
 		_:
 			return LogFormats.NONE
-			
-			
+
+
 func _append(level, message = "", category = CATEGORY_GENERAL):
-	
+
 	if logger_appenders.size() <= 0:
 		logger_appenders.append(ConsoleAppender.new())
-		
+
 	if refresh_appenders:
 		refresh_appenders = false
 		for appender in logger_appenders:
 			appender.start()
 			appender.append_raw(appender.layout.getHeader())
-		
+
 	logger_line += 1
-	
+
 	for appender in logger_appenders:
 #		print("msg level:%d, logger_level:%d" % [level, appender.logger_level])
 		if level <= appender.logger_level:
 			appender.append(Message.new(level, message, category, logger_line))
-		
-	
+
+
 #	@INTERNAL
 
 func _exit_tree():
-	print("hello")
 	for appender in logger_appenders:
 		appender.append_raw(appender.layout.getFooter())
 		appender.stop()
 
-	logger_appenders.clear()	
+	logger_appenders.clear()
 
 func _init():
 	print(" ")
-	print("Godot Stuff Logger")	
+	print("Godot Stuff Logger")
 	print("Copyright 2018, SpockerDotNet LLC")
 	print("Version 0.1")
 	print(" ")
-	
-#	if ProjectSettings.has_setting("logger/level"):
-#		logger_level = _get_level_by_name(ProjectSettings.get_setting("logger/level"))
-#
+
+	if ProjectSettings.has_setting("logger/level"):
+		logger_level = _get_level_by_name(ProjectSettings.get_setting("logger/level"))
+
 #	if ProjectSettings.has_setting("logger/format"):
 #		logger_format = _get_format_by_name(ProjectSettings.get_setting("logger/format"))
-#
-#	print("Logging Level is %s" % [_get_level_name(logger_level)])
+
+	print("Logging Level is %s" % [_get_level_name(logger_level)])
 #	print("Logging Format is %s" % [_get_format_name(logger_format)])
-#	print(" ")
-		
+	print(" ")

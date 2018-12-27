@@ -58,7 +58,7 @@ func console_appender_tests(iters):
 	"""
 		default test is with one appender
 	"""
-	var test = "one-console-appender"
+	var test = "one-console-appenders"
 	Logger.add_appender(Logger.ConsoleAppender.new())	
 	start_test_at_level(test, iters)
 	
@@ -93,7 +93,7 @@ func file_appender_tests(iters):
 	"""
 		add a file appender
 	"""
-	var test = "one-file-appender"
+	var test = "one-file-appenders"
 	Logger.add_appender(Logger.FileAppender.new(".test/1.log"))
 	start_test_at_level(test, iters)
 	
@@ -128,7 +128,7 @@ func html_appender_tests(iters):
 	"""
 		add a html appender
 	"""
-	var test = "one-html"
+	var test = "one-html-appenders"
 	var a1 = Logger.FileAppender.new(".test/1.html")
 	a1.layout = Logger.HtmlLayout.new()
 	Logger.add_appender(a1)
@@ -137,7 +137,7 @@ func html_appender_tests(iters):
 	"""
 		add a html appender
 	"""
-	test = "two-html"
+	test = "two-html-appenders"
 	var a2 = Logger.FileAppender.new(".test/2.html")
 	a2.layout = Logger.HtmlLayout.new()
 	Logger.add_appender(a2)
@@ -146,7 +146,7 @@ func html_appender_tests(iters):
 	"""
 		add a html appender
 	"""
-	test = "three-html"
+	test = "three-html-appenders"
 	var a3 = Logger.FileAppender.new(".test/3.html")
 	a3.layout = Logger.HtmlLayout.new()
 	Logger.add_appender(a3)
@@ -155,7 +155,7 @@ func html_appender_tests(iters):
 	"""
 		add a html appender
 	"""
-	test = "four-html"
+	test = "four-html-appenders"
 	var a4 = Logger.FileAppender.new(".test/4.html")
 	a4.layout = Logger.HtmlLayout.new()
 	Logger.add_appender(a4)
@@ -198,12 +198,14 @@ func _ready():
 	
 	savefile = File.new()
 	savefile.open(".test/performance.log", File.WRITE)
-	savefile.store_line("test, level, iteration, total_time")
+	savefile.store_line("test, level, iterations, total_time")
 	
-	var iters = [10, 25, 100, 250, 1000]#, 2500]
-#	console_appender_tests(iters)
+	var iters = [10, 25, 100, 250]
+	console_appender_tests(iters)
 #	file_appender_tests(iters)
-	html_appender_tests(iters)
+#	html_appender_tests(iters)
 #	multi_appender_test(iters)
 	
 	savefile.close()
+	print("Done!")
+	

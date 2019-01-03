@@ -16,3 +16,7 @@ run/main_scene="res://gs_logger_tests/logger_test.tscn"
 [autoload]
 
 Logger="*res://gs_logger/logger.gd"
+
+[logger]
+
+level="ALL"

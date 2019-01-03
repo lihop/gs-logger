@@ -223,6 +223,18 @@ func _get_format_by_name(format_name):
 		_:
 			return LogFormats.NONE
 
+func _get_logger_level_by_name(logger_level_name):
+	match logger_level_name.to_lower():
+		"all": 		return LogLevels.LEVEL_ALL
+		"trace":	return LogLevels.LEVEL_TRACE
+		"debug":	return LogLevels.LEVEL_DEBUG
+		"info":		return LogLevels.LEVEL_INFO
+		"warn":		return LogLevels.LEVEL_WARN
+		"error":	return LogLevels.LEVEL_ERROR
+		"fatal":	return LogLevels.LEVEL_FATAL
+		"none":		return LogLevels.LEVEL_NONE
+
+
 
 func _append(level, message = "", category = CATEGORY_GENERAL):
 
@@ -260,7 +272,7 @@ func _init():
 	print(" ")
 
 	if ProjectSettings.has_setting("logger/level"):
-		logger_level = _get_level_by_name(ProjectSettings.get_setting("logger/level"))
+		logger_level = _get_logger_level_by_name(ProjectSettings.get_setting("logger/level"))
 
 #	if ProjectSettings.has_setting("logger/format"):
 #		logger_format = _get_format_by_name(ProjectSettings.get_setting("logger/format"))

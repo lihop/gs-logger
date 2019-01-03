@@ -10,29 +10,29 @@ func _try_logging():
 	Logger.info("- info")
 	Logger.warn("- warning")
 	Logger.error("- error")
-	Logger.fatal("- fatal")	
+	Logger.fatal("- fatal")
 
 
 func _ready():
-	
+
 	var h0 = Logger.add_appender(Logger.FileAppender.new("res://.test/new.html"))
 	h0.layout = Logger.HtmlLayout.new()
 #	h0.logger_level = Logger.LogLevels.LEVEL_DEBUG
 #	h0.logger_format = Logger.LogFormats.FULL
 	_try_logging()
-	
+
 	return
-	
+
 	var f0 = Logger.add_appender(Logger.FileAppender.new())
 	f0.logger_level = Logger.LogLevels.LEVEL_DEBUG
 	f0.logger_format = Logger.LogFormats.FULL
 	_try_logging()
-	
+
 	var c0 = Logger.add_appender(Logger.ConsoleAppender.new())
 	c0.logger_level = Logger.LogLevels.LEVEL_FATAL
 	c0.logger_format = Logger.LogFormats.FULL
 
-	
+
 	var ca = Logger.add_appender(Logger.ConsoleAppender.new())
 
 	ca.logger_level = Logger.LEVEL_ALL

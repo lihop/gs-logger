@@ -239,7 +239,9 @@ func _get_logger_level_by_name(logger_level_name):
 func _append(level, message = "", category = CATEGORY_GENERAL):
 
 	if logger_appenders.size() <= 0:
-		logger_appenders.append(ConsoleAppender.new())
+		var ca = ConsoleAppender.new()
+		ca.logger_level = logger_level
+		logger_appenders.append(ca)
 
 	if refresh_appenders:
 		refresh_appenders = false

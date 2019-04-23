@@ -9,13 +9,13 @@ func test():
 	Logger.warn("- warning")
 	Logger.error("- error")
 	Logger.fatal("- fatal")
-	
-	
+
+
 func run_test_at_level(test, level, iter):
 	Logger.set_logger_level(level)
 	run_test(test, level, iter)
-	
-	
+
+
 func run_test(test, level, iter):
 	var st = OS.get_ticks_msec()
 	for i in range(iter):
@@ -24,10 +24,10 @@ func run_test(test, level, iter):
 	var tt = et - st
 	var s = "%s, %d, %d, %d" % [test, level, iter, tt]
 	savefile.store_line(s)
-	
-	
+
+
 func start_test_at_level(test, iters):
-	
+
 	for i in (iters):
 		run_test_at_level(test, Logger.LEVEL_ALL, i)
 		run_test_at_level(test, Logger.LEVEL_TRACE, i)
@@ -39,8 +39,8 @@ func start_test_at_level(test, iters):
 
 
 func start_test(test, iters):
-	
-	for i in (iters):		
+
+	for i in (iters):
 		run_test(test, Logger.LEVEL_ALL, i)
 		run_test(test, Logger.LEVEL_ALL, i)
 		run_test(test, Logger.LEVEL_ALL, i)
@@ -48,83 +48,83 @@ func start_test(test, iters):
 		run_test(test, Logger.LEVEL_ALL, i)
 		run_test(test, Logger.LEVEL_ALL, i)
 		run_test(test, Logger.LEVEL_ALL, i)
-		
+
 func console_appender_tests(iters):
 	"""
 		clear all appenders
 	"""
 	Logger.logger_appenders.clear()
-	
+
 	"""
 		default test is with one appender
 	"""
 	var test = "one-console-appenders"
-	Logger.add_appender(Logger.ConsoleAppender.new())	
+	Logger.add_appender(Logger.ConsoleAppender.new())
 	start_test_at_level(test, iters)
-	
+
 	"""
 		add a second appender
 	"""
 	test = "two-console-appenders"
-	Logger.add_appender(Logger.ConsoleAppender.new())	
+	Logger.add_appender(Logger.ConsoleAppender.new())
 	start_test_at_level(test, iters)
-	
+
 	"""
 		add a third appender
 	"""
 	test = "three-console-appenders"
-	Logger.add_appender(Logger.ConsoleAppender.new())	
+	Logger.add_appender(Logger.ConsoleAppender.new())
 	start_test_at_level(test, iters)
-	
+
 	"""
 		add a fourth appender
 	"""
 	test = "four-console-appenders"
-	Logger.add_appender(Logger.ConsoleAppender.new())	
+	Logger.add_appender(Logger.ConsoleAppender.new())
 	start_test_at_level(test, iters)
-	
+
 
 func file_appender_tests(iters):
 	"""
 		clear all appenders
 	"""
 	Logger.logger_appenders.clear()
-	
+
 	"""
 		add a file appender
 	"""
 	var test = "one-file-appenders"
 	Logger.add_appender(Logger.FileAppender.new(".test/1.log"))
 	start_test_at_level(test, iters)
-	
+
 	"""
 		add a file appender
 	"""
 	test = "two-file-appenders"
 	Logger.add_appender(Logger.FileAppender.new(".test/2.log"))
 	start_test_at_level(test, iters)
-	
+
 	"""
 		add a file appender
 	"""
 	test = "three-file-appenders"
 	Logger.add_appender(Logger.FileAppender.new(".test/3.log"))
 	start_test_at_level(test, iters)
-	
+
 	"""
 		add a file appender
 	"""
 	test = "four-file-appenders"
 	Logger.add_appender(Logger.FileAppender.new(".test/4.log"))
 	start_test_at_level(test, iters)
-	
+
 
 func html_appender_tests(iters):
 	"""
 		clear all appenders
 	"""
 	Logger.logger_appenders.clear()
-	
+
 	"""
 		add a html appender
 	"""
@@ -133,7 +133,7 @@ func html_appender_tests(iters):
 	a1.layout = Logger.HtmlLayout.new()
 	Logger.add_appender(a1)
 	start_test_at_level(test, iters)
-	
+
 	"""
 		add a html appender
 	"""
@@ -142,7 +142,7 @@ func html_appender_tests(iters):
 	a2.layout = Logger.HtmlLayout.new()
 	Logger.add_appender(a2)
 	start_test_at_level(test, iters)
-	
+
 	"""
 		add a html appender
 	"""
@@ -151,7 +151,7 @@ func html_appender_tests(iters):
 	a3.layout = Logger.HtmlLayout.new()
 	Logger.add_appender(a3)
 	start_test_at_level(test, iters)
-	
+
 	"""
 		add a html appender
 	"""
@@ -160,14 +160,14 @@ func html_appender_tests(iters):
 	a4.layout = Logger.HtmlLayout.new()
 	Logger.add_appender(a4)
 	start_test_at_level(test, iters)
-	
-	
+
+
 func multi_appender_test(iters):
 	"""
 		clear all appenders
 	"""
 	Logger.logger_appenders.clear()
-	
+
 	"""
 		add a console appender for fatal errors
 	"""
@@ -175,14 +175,14 @@ func multi_appender_test(iters):
 	var ca = Logger.ConsoleAppender.new()
 	ca.logger_level = Logger.LEVEL_ERROR
 	Logger.add_appender(ca)
-	
+
 	"""
 		add a file appender for info
 	"""
 	var fa = Logger.FileAppender.new(".test/multi.log")
 	fa.logger_level = Logger.LEVEL_INFO
 	Logger.add_appender(fa)
-	
+
 	"""
 		add a html appender for all
 	"""
@@ -190,22 +190,21 @@ func multi_appender_test(iters):
 	ha.layout = Logger.HtmlLayout.new()
 	ha.logger_level = Logger.LEVEL_ALL
 	Logger.add_appender(ha)
-	
+
 	start_test(test, iters)
-	
+
 
 func _ready():
-	
+
 	savefile = File.new()
 	savefile.open(".test/performance.log", File.WRITE)
 	savefile.store_line("test, level, iterations, total_time")
-	
+
 	var iters = [10, 25, 100, 250]
 	console_appender_tests(iters)
-#	file_appender_tests(iters)
-#	html_appender_tests(iters)
-#	multi_appender_test(iters)
-	
+	file_appender_tests(iters)
+	html_appender_tests(iters)
+	multi_appender_test(iters)
+
 	savefile.close()
 	print("Done!")
-	

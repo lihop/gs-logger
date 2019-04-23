@@ -2,3 +2,5 @@
 *.html
 .import
 .test
+.repo
+addons

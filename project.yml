@@ -1,0 +1,25 @@
+# gspm project.yml <http://https://gitlab.com/godot-stuff/gs-project-manager/wikis/schema>
+name: gs-logger
+path: .
+version: 0.0.1
+default_type: git
+godot:
+  location: $godot_306$
+project:
+  url: none
+  
+assets:
+
+  gut:
+    location: https://github.com/bitwes/Gut.git
+    active: true
+    includes:
+      - dir: addons
+      
+pre_install:
+
+post_install:
+
+pre_build:
+
+post_build:

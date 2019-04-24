@@ -1,15 +1,22 @@
-extends "../layout.gd"
+"""
+Class: HtmlLayout
+	Generates an HTML Page and adds each Log Event
+	to a Row in a Table.
+"""
+
+extends Layout
+class_name HtmlLayout
 
 var contextual_classes = \
 	{
-		Logger.LEVEL_ALL: "",
-		Logger.LEVEL_WARN: "warning",
-		Logger.LEVEL_TRACE: "",
-		Logger.LEVEL_NONE: "",
-		Logger.LEVEL_INFO: "info",
-		Logger.LEVEL_FATAL: "danger",
-		Logger.LEVEL_ERROR: "danger",
-		Logger.LEVEL_DEBUG: "",
+		Logger.LOG_LEVEL_ALL: "",
+		Logger.LOG_LEVEL_WARN: "warning",
+		Logger.LOG_LEVEL_TRACE: "",
+		Logger.LOG_LEVEL_NONE: "",
+		Logger.LOG_LEVEL_INFO: "info",
+		Logger.LOG_LEVEL_FATAL: "danger",
+		Logger.LOG_LEVEL_ERROR: "danger",
+		Logger.LOG_LEVEL_DEBUG: "",
 	}
 
 var header = \
@@ -41,14 +48,13 @@ var footer = \
 
 func getHeader():
 	return header
-	
-	
+
+
 func getFooter():
 	return "</body>"
-	
 
-func build(message):
-	
+
+func build(message: Message, format: int):
 	return '<tr class="%s"><td style="width:100px"><span class="glyphicon glyphicon-edit" style="padding-right:10px"></span><span>%d</span></td><td>%s</td></tr>' % [contextual_classes[message.level], message.line, message.text]
 
-	
+

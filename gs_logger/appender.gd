@@ -4,25 +4,24 @@ Class: Appender
 """
 
 extends Reference
+class_name Appender
 
-var logger = preload("./logger.gd")
-
-var layout = Logger.PatternLayout.new()
-var logger_level = logger.LogLevels.LEVEL_ALL setget _set_logger_level
-var logger_format = logger.LogFormats.DEFAULT
+var layout: Layout = PatternLayout.new()
+var logger_level: int = 999 setget _set_logger_level
+var logger_format: int = 030
 
 var name = "appender"
 var is_open = false
 
 
-func _set_logger_level(level):
+func _set_logger_level(level: int):
 	logger_level = level
 
 
 """
 Function: start
 	Start this Appender
-"""	
+"""
 func start():
 	pass
 
@@ -32,22 +31,22 @@ Function: stop
 """
 func stop():
 	pass
-	
+
 """
 Function: append
 	Logs an Event in whatever logic this Appender has
-"""	
-func append(message):
+"""
+func append(message: Message):
 	pass
-	
-	
+
+
 """
 Function: append_raw
 	Send Raw Text to the Appender
 """
-func append_raw(text):
+func append_raw(text: String):
 	pass
-	
-	
+
+
 func _init():
 	pass

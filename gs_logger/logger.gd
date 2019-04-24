@@ -10,20 +10,10 @@ Remarks:
 	Appender to output a log message.
 
 See Also:
-	Appender, Layout
+	Appender, Layout, Message
 """
 
 extends Node
-
-var Message = preload("./message.gd")
-
-var Appender = preload("./appender.gd")
-var ConsoleAppender = preload("./appenders/console_appender.gd")
-var FileAppender = preload("./appenders/file_appender.gd")
-
-var Layout = preload("./layout.gd")
-var PatternLayout = preload("./layouts/pattern_layout.gd")
-var HtmlLayout = preload("./layouts/html_layout.gd")
 
 const CATEGORY_GENERAL = "general"
 const CATEGORY_WARN = "warn"
@@ -40,39 +30,30 @@ const CATEGORY_GAME = "game"
 const CATEGORY_AUDIO = "audio"
 const CATEGORY_CAMERA = "camera"
 
-enum LogLevels \
-	{
-		LEVEL_ALL = 999,
-		LEVEL_TRACE = 600,
-		LEVEL_DEBUG = 500,
-		LEVEL_INFO = 400,
-		LEVEL_WARN = 200,
-		LEVEL_ERROR = 100
-		LEVEL_FATAL = 001,
-		LEVEL_NONE = 000,
-	}
+const LOG_LEVEL_ALL = 999
+const LOG_LEVEL_TRACE = 600
+const LOG_LEVEL_DEBUG = 500
+const LOG_LEVEL_INFO = 400
+const LOG_LEVEL_WARN = 200
+const LOG_LEVEL_ERROR = 100
+const LOG_LEVEL_FATAL = 001
+const LOG_LEVEL_NONE = 000
 
 
-enum LogFormats \
-	{
-		SIMPLE = 20
-		DEFAULT = 30
-		MORE = 90,
-		FULL = 99,
-		NONE = -1,
-	}
+const LOG_FORMAT_SIMPLE = 20
+const LOG_FORMAT_DEFAULT = 30
+const LOG_FORMAT_MORE = 90
+const LOG_FORMAT_FULL = 99
+const LOG_FORMAT_NONE = -1
 
 
-var logger_level = LogLevels.LEVEL_ALL setget set_logger_level
-#var logger_format = LogFormats.FULL
-
+var logger_level = LOG_LEVEL_ALL setget set_logger_level
 var logger_line = 0
 var logger_appenders = []
-
 var refresh_appenders = false
+var version = "3.1-R1"
 
-
-#	@PUBLIC
+#	PUBLIC
 
 
 func add_appender(appender):
@@ -95,81 +76,83 @@ func set_logger_format(format):
 
 static func get_level_name(level):
 	match level:
-		LogLevels.LEVEL_ALL:
+		LOG_LEVEL_ALL:
 			return "ALL"
-		LogLevels.LEVEL_TRACE:
+		LOG_LEVEL_TRACE:
 			return "TRACE"
-		LogLevels.LEVEL_DEBUG:
+		LOG_LEVEL_DEBUG:
 			return "DEBUG"
-		LogLevels.LEVEL_INFO:
+		LOG_LEVEL_INFO:
 			return "INFO"
-		LogLevels.LEVEL_WARN:
+		LOG_LEVEL_WARN:
 			return "WARN"
-		LogLevels.LEVEL_ERROR:
+		LOG_LEVEL_ERROR:
 			return "ERROR"
-		LogLevels.LEVEL_FATAL:
+		LOG_LEVEL_FATAL:
 			return "FATAL"
 		_:
 			return "NONE"
 
 """
 Function: log
-
 	Log a Message at the Info level.
 
 Remarks:
-
 	This is the Default level of logging.
 """
-func info(message, category="general"):
-	_append(LogLevels.LEVEL_INFO, message, category)
+func info(message, category=CATEGORY_GENERAL):
+	_append(LOG_LEVEL_INFO, message, category)
 
 
 """
 Function: trace
-
 	Log a Message at a Trace level.
 """
-func trace(message, category="general"):
-	_append(LogLevels.LEVEL_TRACE, message, category)
+func trace(message, category=CATEGORY_GENERAL):
+	_append(LOG_LEVEL_TRACE, message, category)
 
 
 """
 Function: debug
-
 	Log a Message at a Trace level.
 """
-func debug(message, category="general"):
-	_append(LogLevels.LEVEL_DEBUG, message, category)
+func debug(message, category=CATEGORY_GENERAL):
+	_append(LOG_LEVEL_DEBUG, message, category)
 
 
 """
 Function: warn
-
 	Log a Warning Message.
 """
-func warn(message, category="warn"):
-	_append(LogLevels.LEVEL_WARN, message, category)
+func warn(message, category=CATEGORY_GENERAL):
+	_append(LOG_LEVEL_WARN, message, category)
 
 
 """
 Function: error
-
 	Log an Error Message.
 """
-func error(message, category="error"):
-	_append(LogLevels.LEVEL_ERROR, message, category)
+func error(message, category=CATEGORY_GENERAL):
+	_append(LOG_LEVEL_ERROR, message, category)
 
 
 """
 Function: fatal
-
 	Log an Error Message.
 """
-func fatal(message, category="error"):
-	_append(LogLevels.LEVEL_FATAL, message, category)
+func fatal(message, category=CATEGORY_GENERAL):
+	_append(LOG_LEVEL_FATAL, message, category)
+
+"""
+Function: get_formatted_date
+	Returns a Date in a Formatted form for an Event.
+"""
+func get_formatted_date(date):
+	return _get_formatted_date(date)
+
 
 #	PRIVATE
+
 
 func _get_formatted_date(date):
 	return "%02d/%02d/%02d %02d:%02d:%02d" % [date.month, date.day, date.year, date.hour, date.minute, date.second]
@@ -177,13 +160,13 @@ func _get_formatted_date(date):
 
 func _get_format_name(format):
 	match format:
-		LogFormats.FULL:
+		LOG_FORMAT_FULL:
 			return "FULL"
-		LogFormats.MORE:
+		LOG_FORMAT_MORE:
 			return "MORE"
-		LogFormats.DEFAULT:
+		LOG_FORMAT_DEFAULT:
 			return "DEFAULT"
-		LogFormats.SIMPLE:
+		LOG_FORMAT_SIMPLE:
 			return "SIMPLE"
 		_:
 			return "NONE"
@@ -191,19 +174,19 @@ func _get_format_name(format):
 
 func _get_level_name(level):
 	match level:
-		LogLevels.LEVEL_ALL:
+		LOG_LEVEL_ALL:
 			return "ALL"
-		LogLevels.LEVEL_TRACE:
+		LOG_LEVEL_TRACE:
 			return "TRACE"
-		LogLevels.LEVEL_DEBUG:
+		LOG_LEVEL_DEBUG:
 			return "DEBUG"
-		LogLevels.LEVEL_INFO:
+		LOG_LEVEL_INFO:
 			return "INFO"
-		LogLevels.LEVEL_WARN:
+		LOG_LEVEL_WARN:
 			return "WARN"
-		LogLevels.LEVEL_ERROR:
+		LOG_LEVEL_ERROR:
 			return "ERROR"
-		LogLevels.LEVEL_FATAL:
+		LOG_LEVEL_FATAL:
 			return "FATAL"
 		_:
 			return "NONE"
@@ -213,26 +196,26 @@ func _get_level_name(level):
 func _get_format_by_name(format_name):
 	match format_name.to_lower():
 		"full":
-			return LogFormats.FULL
+			return LOG_FORMAT_FULL
 		"more":
-			return LogFormats.MORE
+			return LOG_FORMAT_MORE
 		"default":
-			return LogFormats.DEFAULT
+			return LOG_FORMAT_DEFAULT
 		"simple":
-			return LogFormats.SIMPLE
+			return LOG_FORMAT_SIMPLE
 		_:
-			return LogFormats.NONE
+			return LOG_FORMAT_NONE
 
 func _get_logger_level_by_name(logger_level_name):
 	match logger_level_name.to_lower():
-		"all": 		return LogLevels.LEVEL_ALL
-		"trace":	return LogLevels.LEVEL_TRACE
-		"debug":	return LogLevels.LEVEL_DEBUG
-		"info":		return LogLevels.LEVEL_INFO
-		"warn":		return LogLevels.LEVEL_WARN
-		"error":	return LogLevels.LEVEL_ERROR
-		"fatal":	return LogLevels.LEVEL_FATAL
-		"none":		return LogLevels.LEVEL_NONE
+		"all": 		return LOG_LEVEL_ALL
+		"trace":	return LOG_LEVEL_TRACE
+		"debug":	return LOG_LEVEL_DEBUG
+		"info":		return LOG_LEVEL_INFO
+		"warn":		return LOG_LEVEL_WARN
+		"error":	return LOG_LEVEL_ERROR
+		"fatal":	return LOG_LEVEL_FATAL
+		"none":		return LOG_LEVEL_NONE
 
 
 
@@ -252,12 +235,12 @@ func _append(level, message = "", category = CATEGORY_GENERAL):
 	logger_line += 1
 
 	for appender in logger_appenders:
-#		print("msg level:%d, logger_level:%d" % [level, appender.logger_level])
 		if level <= appender.logger_level:
 			appender.append(Message.new(level, message, category, logger_line))
 
 
-#	@INTERNAL
+#	INTERNAL
+
 
 func _exit_tree():
 	for appender in logger_appenders:
@@ -266,19 +249,17 @@ func _exit_tree():
 
 	logger_appenders.clear()
 
+
 func _init():
 	print(" ")
-	print("Godot Stuff Logger")
-	print("Copyright 2018, SpockerDotNet LLC")
-	print("Version 0.1")
+	print("godot-stuff Logger")
+	print("https://gitlab.com/godot-stuff/gs-logger")
+	print("Copyright 2018-2019, SpockerDotNet LLC")
+	print("Version " + version)
 	print(" ")
 
 	if ProjectSettings.has_setting("logger/level"):
 		logger_level = _get_logger_level_by_name(ProjectSettings.get_setting("logger/level"))
 
-#	if ProjectSettings.has_setting("logger/format"):
-#		logger_format = _get_format_by_name(ProjectSettings.get_setting("logger/format"))
-
 	print("Logging Level is %s" % [_get_level_name(logger_level)])
-#	print("Logging Format is %s" % [_get_format_name(logger_format)])
 	print(" ")

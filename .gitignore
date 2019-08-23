@@ -1,6 +1,6 @@
 *.log
 *.html
-.import
+*.import
 .test
 .repo
 addons

@@ -65,6 +65,11 @@ func add_appender(appender):
 
 
 func set_logger_level(level):
+
+	logger_level = level
+	print("Logging Level is %s" % [_get_level_name(logger_level)])
+	print(" ")
+
 	for appender in logger_appenders:
 		appender.logger_level = level
 
@@ -259,7 +264,4 @@ func _init():
 	print(" ")
 
 	if ProjectSettings.has_setting("logger/level"):
-		logger_level = _get_logger_level_by_name(ProjectSettings.get_setting("logger/level"))
-
-	print("Logging Level is %s" % [_get_level_name(logger_level)])
-	print(" ")
+		set_logger_level(_get_logger_level_by_name(ProjectSettings.get_setting("logger/level")))

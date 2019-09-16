@@ -60,3 +60,5 @@ func _ready():
 	_try_logging()
 	ca.logger_level = Logger.LOG_LEVEL_FATAL
 	_try_logging()
+
+	print("Done!")

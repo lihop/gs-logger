@@ -2,6 +2,7 @@ extends Node
 
 
 func _try_logging():
+	Logger.fine("test fine")
 	Logger.trace("test trace")
 	Logger.trace("test debug")
 	Logger.info("test info")
@@ -47,6 +48,8 @@ func _ready():
 	var ca = Logger.add_appender(ConsoleAppender.new())
 	ca.logger_format = Logger.LOG_FORMAT_FULL
 	ca.logger_level = Logger.LOG_LEVEL_ALL
+	_try_logging()
+	ca.logger_level = Logger.LOG_LEVEL_FINE
 	_try_logging()
 	ca.logger_level = Logger.LOG_LEVEL_TRACE
 	_try_logging()

@@ -9,14 +9,15 @@ class_name HtmlLayout
 
 var contextual_classes = \
 	{
-		Logger.LOG_LEVEL_ALL: "",
-		Logger.LOG_LEVEL_WARN: "warning",
+		Logger.LOG_LEVEL_ALL: 	"",
+		Logger.LOG_LEVEL_FINE: 	"",
 		Logger.LOG_LEVEL_TRACE: "",
-		Logger.LOG_LEVEL_NONE: "",
-		Logger.LOG_LEVEL_INFO: "info",
+		Logger.LOG_LEVEL_INFO: 	"info",
 		Logger.LOG_LEVEL_FATAL: "danger",
+		Logger.LOG_LEVEL_WARN: 	"warning",
 		Logger.LOG_LEVEL_ERROR: "danger",
 		Logger.LOG_LEVEL_DEBUG: "",
+		Logger.LOG_LEVEL_NONE: 	"",
 	}
 
 var header = \

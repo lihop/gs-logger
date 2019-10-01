@@ -31,6 +31,7 @@ const CATEGORY_AUDIO = "audio"
 const CATEGORY_CAMERA = "camera"
 
 const LOG_LEVEL_ALL = 999
+const LOG_LEVEL_FINE = 700
 const LOG_LEVEL_TRACE = 600
 const LOG_LEVEL_DEBUG = 500
 const LOG_LEVEL_INFO = 400
@@ -83,6 +84,8 @@ static func get_level_name(level):
 	match level:
 		LOG_LEVEL_ALL:
 			return "ALL"
+		LOG_LEVEL_FINE:
+			return "FINE"
 		LOG_LEVEL_TRACE:
 			return "TRACE"
 		LOG_LEVEL_DEBUG:
@@ -107,6 +110,14 @@ Remarks:
 """
 func info(message, category=CATEGORY_GENERAL):
 	_append(LOG_LEVEL_INFO, message, category)
+
+
+"""
+Function: fine
+	Log a Message at a Fine level.
+"""
+func fine(message, category=CATEGORY_GENERAL):
+	_append(LOG_LEVEL_FINE, message, category)
 
 
 """
@@ -182,6 +193,8 @@ func _get_level_name(level):
 		LOG_LEVEL_ALL:
 			return "ALL"
 		LOG_LEVEL_TRACE:
+			return "FINE"
+		LOG_LEVEL_FINE:
 			return "TRACE"
 		LOG_LEVEL_DEBUG:
 			return "DEBUG"
@@ -195,7 +208,6 @@ func _get_level_name(level):
 			return "FATAL"
 		_:
 			return "NONE"
-
 
 
 func _get_format_by_name(format_name):
@@ -214,6 +226,7 @@ func _get_format_by_name(format_name):
 func _get_logger_level_by_name(logger_level_name):
 	match logger_level_name.to_lower():
 		"all": 		return LOG_LEVEL_ALL
+		"fine":		return LOG_LEVEL_FINE
 		"trace":	return LOG_LEVEL_TRACE
 		"debug":	return LOG_LEVEL_DEBUG
 		"info":		return LOG_LEVEL_INFO
@@ -242,9 +255,6 @@ func _append(level, message = "", category = CATEGORY_GENERAL):
 	for appender in logger_appenders:
 		if level <= appender.logger_level:
 			appender.append(Message.new(level, message, category, logger_line))
-
-
-#	INTERNAL
 
 
 func _exit_tree():

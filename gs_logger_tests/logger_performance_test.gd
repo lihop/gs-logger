@@ -3,6 +3,7 @@ extends Node
 var savefile
 
 func test():
+	Logger.fine("test fine")
 	Logger.trace("test trace")
 	Logger.debug("test debug")
 	Logger.info("test info")
@@ -30,6 +31,7 @@ func start_test_at_level(test, iters):
 
 	for i in (iters):
 		run_test_at_level(test, Logger.LOG_LEVEL_ALL, i)
+		run_test_at_level(test, Logger.LOG_LEVEL_FINE, i)
 		run_test_at_level(test, Logger.LOG_LEVEL_TRACE, i)
 		run_test_at_level(test, Logger.LOG_LEVEL_DEBUG, i)
 		run_test_at_level(test, Logger.LOG_LEVEL_INFO, i)
@@ -42,6 +44,7 @@ func start_test(test, iters):
 
 	for i in (iters):
 		run_test(test, Logger.LOG_LEVEL_ALL, i)
+		run_test(test, Logger.LOG_LEVEL_FINE, i)
 		run_test(test, Logger.LOG_LEVEL_TRACE, i)
 		run_test(test, Logger.LOG_LEVEL_DEBUG, i)
 		run_test(test, Logger.LOG_LEVEL_INFO, i)
@@ -197,7 +200,7 @@ func multi_appender_test(iters):
 func _ready():
 
 	savefile = File.new()
-	savefile.open(".test/performance.log", File.WRITE)
+	savefile.open(".test/performance.csv", File.WRITE)
 	savefile.store_line("test, level, iterations, total_time")
 
 	var iters = [10, 25, 100, 250]

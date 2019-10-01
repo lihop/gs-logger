@@ -17,6 +17,7 @@ There are eight different logging levels that you can use.
 Logging levels are cumulative. So if you select a logging level of INFO, you will also see all levels below that, which would be logs using WARN, ERROR and FATAL.
 
 * LOG_LEVEL_ALL
+* LOG_LEVEL_FINE
 * LOG_LEVEL_TRACE
 * LOG_LEVEL_DEBUG
 * LOG_LEVEL_INFO
@@ -39,6 +40,7 @@ Logger.set_logger_level(Logger.LOG_LEVEL_ERROR)
 The other way to set the logging level is in your project. You can use the Property "logger/level" to one of the following
 
 * ALL
+* FINE
 * TRACE
 * DEBUG
 * INFO
@@ -50,6 +52,7 @@ The other way to set the logging level is in your project. You can use the Prope
 ## How To Use
 Add *logger.gd* as a Singleton to your project called "Logger". Then in your GDScript code you can use these statements to log output.
 ```
+Logger.fine("test fine")
 Logger.trace("test trace")
 Logger.debug("test debug")
 Logger.info("test info")

@@ -193,9 +193,9 @@ func _get_level_name(level):
 		LOG_LEVEL_ALL:
 			return "ALL"
 		LOG_LEVEL_TRACE:
-			return "FINE"
-		LOG_LEVEL_FINE:
 			return "TRACE"
+		LOG_LEVEL_FINE:
+			return "FINE"
 		LOG_LEVEL_DEBUG:
 			return "DEBUG"
 		LOG_LEVEL_INFO:

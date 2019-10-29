@@ -52,7 +52,7 @@ var logger_level = LOG_LEVEL_ALL setget set_logger_level
 var logger_line = 0
 var logger_appenders = []
 var refresh_appenders = false
-var version = "3.2-dev"
+var version = "3.2-R1-dev"
 
 #	PUBLIC
 

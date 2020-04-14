@@ -4,4 +4,3 @@
 
 [node name="LoggerTest" type="Node"]
 script = ExtResource( 1 )
-

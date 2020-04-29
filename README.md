@@ -49,6 +49,21 @@ The other way to set the logging level is in your project. You can use the Prope
 * FATAL
 * NONE
 
+## Setting The Logging Format
+By default the Logging format is set to DEFAULT. There are two different ways to change the Logging Format. 
+
+The first way is in your code. At startup, you can use the set_logger_format function to glabally set the format. In the example below, any ERROR logs will be captured.
+```
+Logger.set_logger_format(Logger.LOG_FORMAT_FORMAT)
+```
+The other way to set the logging format is in your project. You can use the Property "logger/format" to one of the following
+
+* FULL
+* MORE
+* DEFAULT
+* SIMPLE
+* NONE
+
 ## How To Use
 Add *logger.gd* as a Singleton to your project called "Logger". Then in your GDScript code you can use these statements to log output.
 ```

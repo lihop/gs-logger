@@ -49,6 +49,7 @@ const LOG_FORMAT_NONE = -1
 
 
 var logger_level = LOG_LEVEL_ALL setget set_logger_level
+var logger_format = LOG_FORMAT_DEFAULT setget set_logger_format
 var logger_line = 0
 var logger_appenders = []
 var refresh_appenders = false
@@ -66,7 +67,6 @@ func add_appender(appender):
 
 
 func set_logger_level(level):
-
 	logger_level = level
 	print("Logging Level is %s" % [_get_level_name(logger_level)])
 	print(" ")
@@ -76,6 +76,10 @@ func set_logger_level(level):
 
 
 func set_logger_format(format):
+	logger_format = format
+	print("Logging Format is %s" % [_get_format_name(format)])
+	print(" ")
+	
 	for appender in logger_appenders:
 		appender.logger_format = format
 
@@ -235,13 +239,20 @@ func _get_logger_level_by_name(logger_level_name):
 		"fatal":	return LOG_LEVEL_FATAL
 		"none":		return LOG_LEVEL_NONE
 
-
+func _get_logger_format_by_name(logger_format_name):
+	match logger_format_name.to_lower():
+		"simple":	return LOG_FORMAT_SIMPLE
+		"default":	return LOG_FORMAT_DEFAULT
+		"more":		return LOG_FORMAT_MORE
+		"full":		return LOG_FORMAT_FULL
+		"none":		return LOG_FORMAT_NONE
 
 func _append(level, message = "", category = CATEGORY_GENERAL):
 
 	if logger_appenders.size() <= 0:
 		var ca = ConsoleAppender.new()
 		ca.logger_level = logger_level
+		ca.logger_format = logger_format
 		logger_appenders.append(ca)
 
 	if refresh_appenders:
@@ -275,3 +286,6 @@ func _init():
 
 	if ProjectSettings.has_setting("logger/level"):
 		set_logger_level(_get_logger_level_by_name(ProjectSettings.get_setting("logger/level")))
+
+	if ProjectSettings.has_setting("logger/format"):
+		set_logger_format(_get_logger_format_by_name(ProjectSettings.get_setting("logger/format")))

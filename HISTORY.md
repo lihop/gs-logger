@@ -1,3 +1,5 @@
+## Release History
+
 ### 3.2 2020-04-08
 #### Added
 * LICENSE file

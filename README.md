@@ -9,7 +9,19 @@ A GDScript based logging utility, it provides a very low level way to debug your
 * html output available (experimental)
 
 ## Installation
-Add gs-logger to your Godot project, you can do this by [grabbing the latest release](https://gitlab.com/godot-stuff/gs-logger/-/releases) and adding it to your project. Or, you can use the Asset Library to include it in your project. If you are very adventurous, you could even try using the [godot-stuff Project Manager (gspm)](https://gitlab.com/godot-stuff/gs-project-manager) and add it to your project.
+Add gs-logger to your Godot project, you can do this by [grabbing the latest release](https://gitlab.com/godot-stuff/gs-logger/-/releases) and adding it to your project. Or, you can use the Asset Library to include it in your project. 
+
+If you are very adventurous, you could even try using the [godot-stuff Project Manager (gspm)](https://gitlab.com/godot-stuff/gs-project-manager) and add it to your project using this entry
+
+```
+assets:
+  
+  gs-logger:
+    location: https://gitlab.com/godot-stuff/gs-logger.git
+    branch: master
+    includes:
+    - dir : gs_logger
+```
 
 ## The Logging Levels
 There are eight different logging levels that you can use. 

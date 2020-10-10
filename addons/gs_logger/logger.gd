@@ -53,7 +53,7 @@ var logger_format = LOG_FORMAT_DEFAULT setget set_logger_format
 var logger_line = 0
 var logger_appenders = []
 var refresh_appenders = false
-var version = "3.2-R3"
+var version = "3.2-R4"
 
 #	PUBLIC
 

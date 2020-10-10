@@ -5,4 +5,5 @@
 .repo
 *.zip
 *.7z
-addons
+**/addons/*
+!**/addons/gs_logger/

@@ -47,11 +47,11 @@ var footer = \
 </html>
 """
 
-func getHeader():
+func get_header():
 	return header
 
 
-func getFooter():
+func get_footer():
 	return "</body>"
 
 

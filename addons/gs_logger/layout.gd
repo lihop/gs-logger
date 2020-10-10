@@ -5,11 +5,11 @@ Class: Layout
 extends Reference
 class_name Layout
 
-func getHeader():
+func get_header():
 	return ""
 
 
-func getFooter():
+func get_footer():
 	return ""
 
 

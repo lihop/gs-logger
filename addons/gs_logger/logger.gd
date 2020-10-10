@@ -1,17 +1,17 @@
-"""
-Class: Logger
-	A general purpose Logger for use with GDScript.
-
-Copyright:
-	Copyright 2018 SpockerDotNet LLC
-
-Remarks:
-	The Logger will send a request to an
-	Appender to output a log message.
-
-See Also:
-	Appender, Layout, Message
-"""
+#
+# Class: Logger
+#	A general purpose Logger for use with GDScript.
+#
+# Copyright:
+#	Copyright 2018 SpockerDotNet LLC
+#
+# Remarks:
+#	The Logger will send a request to an
+#	Appender to output a log message.
+#
+# See Also:
+#	Appender, Layout, Message
+#
 
 extends Node
 
@@ -53,7 +53,7 @@ var logger_format = LOG_FORMAT_DEFAULT setget set_logger_format
 var logger_line = 0
 var logger_appenders = []
 var refresh_appenders = false
-var version = "3.2-R1-dev"
+var version = "3.2-R4"
 
 #	PUBLIC
 
@@ -105,73 +105,54 @@ static func get_level_name(level):
 		_:
 			return "NONE"
 
-"""
-Function: log
-	Log a Message at the Info level.
-
-Remarks:
-	This is the Default level of logging.
-"""
+#Function: info
+#	Log a Message at the Info level.
+#
+#Remarks:
+#	This is the Default level of logging.
 func info(message, category=CATEGORY_GENERAL):
 	_append(LOG_LEVEL_INFO, message, category)
 
 
-"""
-Function: fine
-	Log a Message at a Fine level.
-"""
+#Function: fine
+#	Log a Message at a Fine level.
 func fine(message, category=CATEGORY_GENERAL):
 	_append(LOG_LEVEL_FINE, message, category)
 
 
-"""
-Function: trace
-	Log a Message at a Trace level.
-"""
+#Function: trace
+#	Log a Message at a Trace level.
 func trace(message, category=CATEGORY_GENERAL):
 	_append(LOG_LEVEL_TRACE, message, category)
 
 
-"""
-Function: debug
-	Log a Message at a Trace level.
-"""
+#Function: debug
+#	Log a Message at a Trace level.
 func debug(message, category=CATEGORY_GENERAL):
 	_append(LOG_LEVEL_DEBUG, message, category)
 
 
-"""
-Function: warn
-	Log a Warning Message.
-"""
+#Function: warn
+#	Log a Warning Message.
 func warn(message, category=CATEGORY_GENERAL):
 	_append(LOG_LEVEL_WARN, message, category)
 
 
-"""
-Function: error
-	Log an Error Message.
-"""
+#Function: error
+#	Log an Error Message.
 func error(message, category=CATEGORY_GENERAL):
 	_append(LOG_LEVEL_ERROR, message, category)
 
 
-"""
-Function: fatal
-	Log an Error Message.
-"""
+#Function: fatal
+#	Log an Error Message.
 func fatal(message, category=CATEGORY_GENERAL):
 	_append(LOG_LEVEL_FATAL, message, category)
 
-"""
-Function: get_formatted_date
-	Returns a Date in a Formatted form for an Event.
-"""
+#Function: get_formatted_date
+#	Returns a Date in a Formatted form for an Event.
 func get_formatted_date(date):
 	return _get_formatted_date(date)
-
-
-#	PRIVATE
 
 
 func _get_formatted_date(date):
@@ -259,7 +240,7 @@ func _append(level, message = "", category = CATEGORY_GENERAL):
 		refresh_appenders = false
 		for appender in logger_appenders:
 			appender.start()
-			appender.append_raw(appender.layout.getHeader())
+			appender.append_raw(appender.layout.get_header())
 
 	logger_line += 1
 
@@ -270,7 +251,7 @@ func _append(level, message = "", category = CATEGORY_GENERAL):
 
 func _exit_tree():
 	for appender in logger_appenders:
-		appender.append_raw(appender.layout.getFooter())
+		appender.append_raw(appender.layout.get_footer())
 		appender.stop()
 
 	logger_appenders.clear()

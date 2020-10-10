@@ -12,37 +12,37 @@ _global_script_classes=[ {
 "base": "Reference",
 "class": "Appender",
 "language": "GDScript",
-"path": "res://gs_logger/appender.gd"
+"path": "res://addons/gs_logger/appender.gd"
 }, {
 "base": "Appender",
 "class": "ConsoleAppender",
 "language": "GDScript",
-"path": "res://gs_logger/appenders/console_appender.gd"
+"path": "res://addons/gs_logger/appenders/console_appender.gd"
 }, {
 "base": "Appender",
 "class": "FileAppender",
 "language": "GDScript",
-"path": "res://gs_logger/appenders/file_appender.gd"
+"path": "res://addons/gs_logger/appenders/file_appender.gd"
 }, {
 "base": "Layout",
 "class": "HtmlLayout",
 "language": "GDScript",
-"path": "res://gs_logger/layouts/html_layout.gd"
+"path": "res://addons/gs_logger/layouts/html_layout.gd"
 }, {
 "base": "Reference",
 "class": "Layout",
 "language": "GDScript",
-"path": "res://gs_logger/layout.gd"
+"path": "res://addons/gs_logger/layout.gd"
 }, {
 "base": "Reference",
 "class": "Message",
 "language": "GDScript",
-"path": "res://gs_logger/message.gd"
+"path": "res://addons/gs_logger/message.gd"
 }, {
 "base": "Layout",
 "class": "PatternLayout",
 "language": "GDScript",
-"path": "res://gs_logger/layouts/pattern_layout.gd"
+"path": "res://addons/gs_logger/layouts/pattern_layout.gd"
 } ]
 _global_script_class_icons={
 "Appender": "",
@@ -61,7 +61,11 @@ run/main_scene="res://gs_logger_tests/logger_test.tscn"
 
 [autoload]
 
-Logger="*res://gs_logger/logger.gd"
+Logger="*res://addons/gs_logger/logger.gd"
+
+[editor_plugins]
+
+enabled=PoolStringArray( "gs_logger" )
 
 [logger]
 

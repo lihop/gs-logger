@@ -3,6 +3,6 @@
 *.import
 .test
 .repo
-addons
 *.zip
 *.7z
+addons

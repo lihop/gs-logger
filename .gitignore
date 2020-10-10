@@ -3,6 +3,7 @@
 *.import
 .test
 .repo
-addons
 *.zip
 *.7z
+**/addons/*
+!**/addons/gs_logger/

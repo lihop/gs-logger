@@ -54,15 +54,15 @@ Logger.set_logger_level(Logger.LOG_LEVEL_ERROR)
 ```
 The other way to set the logging level is in your project. You can use the Property "logger/level" to one of the following
 
-* ALL
-* FINE
-* TRACE
-* DEBUG
-* INFO
-* WARN
-* ERROR
-* FATAL
-* NONE
+* `ALL`
+* `FINE`
+* `TRACE`
+* `DEBUG`
+* `INFO`
+* `WARN`
+* `ERROR`
+* `FATAL`
+* `NONE`
 
 ## Setting The Logging Format
 By default the Logging format is set to DEFAULT. There are two different ways to change the Logging Format. 
@@ -73,11 +73,11 @@ Logger.set_logger_format(Logger.LOG_FORMAT_FORMAT)
 ```
 The other way to set the logging format is in your project. You can use the Property "logger/format" to one of the following
 
-* FULL
-* MORE
-* DEFAULT
-* SIMPLE
-* NONE
+* `FULL`
+* `MORE`
+* `DEFAULT`
+* `SIMPLE`
+* `NONE`
 
 ## How To Use
 In your GDScript code you can use these statements to log output.
@@ -124,6 +124,9 @@ c0.logger_level = Logger.LOG_LEVEL_ERROR
 var c1 = Logger.add_appender(ConsoleAppender.new())
 c1.logger_level = Logger.LOG_LEVEL_DEBUG
 ```
+
+## Layouts
+Layouts are used to control the formatting of log messages. 
 
 ## How To Contribute
 ```

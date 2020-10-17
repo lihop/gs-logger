@@ -1,11 +1,11 @@
-"""
-Class: HtmlLayout
-	Generates an HTML Page and adds each Log Event
-	to a Row in a Table.
-"""
+#
+#Class: HtmlLayout
+#	Generates an HTML Page and adds each Log Event
+#	to a Row in a Table.
+#
 
-extends Layout
 class_name HtmlLayout
+extends Layout
 
 var contextual_classes = \
 	{
@@ -52,10 +52,8 @@ func get_header():
 
 
 func get_footer():
-	return "</body>"
+	return footer
 
 
 func build(message: Message, format: int):
 	return '<tr class="%s"><td style="width:100px"><span class="glyphicon glyphicon-edit" style="padding-right:10px"></span><span>%d</span></td><td>%s</td></tr>' % [contextual_classes[message.level], message.line, message.text]
-
-

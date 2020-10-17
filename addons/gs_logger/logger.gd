@@ -54,7 +54,7 @@ var logger_line = 0
 var logger_appenders = []
 var refresh_appenders = false
 
-var version = "3.2-R3-dev"
+var version = "3.2-R3"
 
 #	PUBLIC
 

@@ -3,6 +3,7 @@
 *.import
 .test
 .repo
+.godot
 *.zip
 *.7z
 **/addons/*

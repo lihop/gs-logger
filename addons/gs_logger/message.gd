@@ -21,5 +21,5 @@ func _init(level=000, text="", category="general", line=0, data={}):
 	self.level = level
 	self.text = text
 	self.category = category
-#	self.line = line
-#	self.data = data
+	self.line = line
+	self.data = data

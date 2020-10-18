@@ -1,11 +1,10 @@
+#
+#Class: FileAppender
+#	Logs an Event to a File.
+#
 
-"""
-Class: FileAppender
-	Logs an Event to a File.
-"""
-
-extends Appender
 class_name FileAppender
+extends Appender
 
 var savefile
 

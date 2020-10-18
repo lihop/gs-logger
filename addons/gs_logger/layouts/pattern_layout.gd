@@ -1,10 +1,10 @@
+#
+#Class: PatternLayout
+#	A Flexible Layout with a Pattern String.
+#
 
-"""
-Class: PatternLayout
-	A Flexible Layout with a Pattern String.
-"""
-extends Layout
 class_name PatternLayout
+extends Layout
 
 func build(message: Message, format: int):
 
@@ -22,23 +22,3 @@ func build(message: Message, format: int):
 			return "%-8d %s" % [message.line, message.text]
 		_:
 			return "%-8s %s" % [Logger.get_formatted_date(OS.get_datetime()), message.text]
-
-
-	"""
-	var msg = ""
-
-	match format:
-		LogFormats.FULL:
-			msg = "%s %-8s %-8s %-8d %s" % [_get_formatted_date(OS.get_datetime()), category.to_upper(), _get_level_name(level), logger_line, message]
-		LogFormats.MORE:
-			msg = "%-8s %-8s %-8d %s" % [_get_formatted_date(OS.get_datetime()), category.to_upper(), _get_level_name(level), logger_line, message]
-		LogFormats.DEFAULT:
-			msg = "%-10s %-8d %s" % [_get_level_name(level), logger_line, message]
-		LogFormats.SIMPLE:
-			msg = "%-8d %s" % [logger_line, message]
-		_:
-			msg = "%s" % [message]
-	"""
-
-
-

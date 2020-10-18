@@ -1,9 +1,11 @@
-"""
-Class: Layout
-	Formats a Log Event for an Appender.
-"""
-extends Reference
+
+#
+#Class: Layout
+#	Formats a Log Event for an Appender.
+#
+
 class_name Layout
+extends Reference
 
 func get_header():
 	return ""
@@ -13,7 +15,7 @@ func get_footer():
 	return ""
 
 
-func build(message: Message, format: int):
+func build(message: Message, format: int): 
 	return message
 
 

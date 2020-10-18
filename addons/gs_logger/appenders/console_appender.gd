@@ -1,11 +1,11 @@
 
-"""
-Class: ConsoleAppender
-	Logs an Event to the Console Window.
-"""
+#
+#Class: ConsoleAppender
+#	Logs an Event to the Console Window.
+#
 
-extends Appender
 class_name ConsoleAppender
+extends Appender
 
 func append(message: Message):
 	print(layout.build(message, logger_format))

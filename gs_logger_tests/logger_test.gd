@@ -65,3 +65,6 @@ func _ready():
 	_try_logging()
 
 	print("Done!")
+	
+	get_tree().quit()
+	

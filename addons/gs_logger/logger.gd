@@ -136,12 +136,14 @@ func debug(message, category=CATEGORY_GENERAL):
 #Function: warn
 #	Log a Warning Message.
 func warn(message, category=CATEGORY_GENERAL):
+	push_warning(message)
 	_append(LOG_LEVEL_WARN, message, category)
 
 
 #Function: error
 #	Log an Error Message.
 func error(message, category=CATEGORY_GENERAL):
+	push_error(message)
 	_append(LOG_LEVEL_ERROR, message, category)
 
 
